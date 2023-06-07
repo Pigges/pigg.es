@@ -9,7 +9,7 @@ export async function get() {
   return rss({
     title: 'Pigges Blog',
     description: 'My Blog',
-    site: 'https://pigg.es',
+    site: 'https://www.pigg.es',
     items: blog.map((post) => ({
       link: `/blog/${post.slug}/`,
       content: sanitizeHtml(parser.render(post.body), {
