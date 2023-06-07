@@ -1,0 +1,80 @@
+---
+import getReadingTime from 'reading-time';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.title} description="Hi! I'm Philip. Welcome to my website!">
+    <div class="wrapper">
+        <div class="blog">
+            <div class="meta">
+                <h1>{entry.data.title}</h1>
+                <p>{new Date(entry.data.pubDate).toLocaleDateString('en-gb', { year:"numeric", day:"numeric", month:"short"}).replaceAll(',', '')} &middot; {getReadingTime(entry.body).text}</p>
+            </div>
+            <p><em>{entry.data.description}</em></p>
+            <div class="hb"></div>
+            <div class="post">
+                <Content />
+            </div>
+            <div class="hb"></div>
+            <div class="note">
+                <a class="btn" href="/blog">Back</a>
+            </div>
+        </div>
+    </div>
+</Layout>
+<style is:global>
+    .blog {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .blog .post {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .blog .post a {
+        color: #08f;
+        text-decoration: none;
+    }
+
+    .blog .post a:hover {
+        text-decoration: underline;
+    }
+
+    .blog .post img {
+        max-width: 300px;
+    }
+
+    pre {
+        padding: 5px 10px;
+        border-radius: 20px;
+        width: fit-content;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .blog .post {
+            margin: auto;
+        }
+
+        .blog .post img {
+            display: block;
+            margin: auto;
+        }
+    }
+</style>

@@ -1,0 +1,22 @@
+---
+const today = new Date();
+---
+
+<footer>
+    <div class="left"></div>
+    <div class="right">
+        <p class="copy">&copy; {today.getFullYear()} Philip Ahlqvist. All rights reserved.</p>
+    </div>
+</footer>
+<style>
+    footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 50px;
+        padding: 0 40px;
+        background-color: var(--secondary-opacity);
+        box-shadow: 0px -4px 4px var(--primary-opacity);
+        border-top: 1px solid var(--primary);
+    }
+</style>

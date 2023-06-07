@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Rss from '../resources/svg/rss.astro';
+
+const posts = await getCollection('blog');
+//const posts = await Astro.glob('../pages/blog/*.{md,mdx}');
+
+// Sort posts by pubDate
+posts.sort((a, b) => {
+    return new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
+});
+---
+
+<Layout title="My Blog" description="Hi! I'm Philip. Welcome to my website!">
+    <div class="wrapper blog">
+        <h1 class="title">My Blog <a href="/blog/rss.xml"><Rss/></a></h1>
+        <div class="hb"></div>
+        <div class="posts">
+            {posts.map((post) => (
+                <div class="post">
+                    <p>
+                        <span><em>{new Date(post.data.pubDate).toLocaleDateString('en-gb', { year:"numeric", day:"numeric", month:"short"}).replaceAll(',', '')}</em></span>
+                        <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+                        <span><em>{post.data.description}</em></span>
+                    </p>
+                </div>
+            ))}
+        </div>
+        <div class="hb"></div>
+        <div class="note">
+            <a class="btn" href="/blog/rss.xml"><Rss/> RSS Feed</a>
+        </div>
+    </div>
+</Layout>
+<style>
+    .blog {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .blog .title {
+        color: var(--primary);
+    }
+
+    .blog .title a:hover {
+        color: #E87616;
+    }
+
+    .blog .posts {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .blog .posts .post p {
+        display: flex;
+        gap: 20px;
+    }
+
+    .blog .posts .post a {
+		color: #08f;
+		text-decoration: none;
+	}
+
+	.blog .posts .post a:hover {
+		text-decoration: underline;
+	}
+
+    .note {
+        display: flex;
+        width: fit-content;
+        gap: 20px;
+        text-decoration: none;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .img {
+            display: none;
+        }
+    }
+</style>

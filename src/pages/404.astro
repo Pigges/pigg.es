@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404" description="Hi! I'm Philip. Welcome to my website!">
+    <div class="wrapper not-found">
+        <img class="bug unselectable" src="/assets/404.svg" alt="bug found">
+        <div class="text">
+            <h3>404 - Not found</h3>
+            <p>Oops! You were not supposed to see this...</p>
+        </div>
+        <a href="/" class="unselectable btn">Head back home</a>
+    </div>
+</Layout>
+<style>
+    .not-found {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .bug {
+        width: 50%;
+        max-width: 300px;
+        padding: 20px;
+        border-radius: 10px 20px;
+        background-color: var(--secondary-opacity);
+        box-shadow: 0px 4px 4px var(--primary-opacity);
+        transition: width 0.5s;
+        animation: popup 0.5s;
+    }
+
+    .not-found .text {
+        text-align: center;
+    }
+
+    @media only screen and (max-width: 700px) {
+        .bug {
+            width: 80%;
+        }
+    }
+</style>

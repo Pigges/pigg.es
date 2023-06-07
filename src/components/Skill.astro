@@ -1,0 +1,43 @@
+---
+export interface Props {
+	category: string;
+}
+
+const { category } = Astro.props;
+---
+
+<div class={"category " + category}>
+    <p class="title">{category.charAt(0).toUpperCase() + category.slice(1)}</p>
+    <div class="list">
+        <slot />
+    </div>
+</div>
+<style>
+	.category {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.category .title {
+		font-size: 1.2rem;
+		font-weight: bold;
+	}
+
+	.category .list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        display: flex;
+        gap: 10px;
+		padding: 10px 20px;
+		border-radius: 20px;
+		background-color: var(--secondary-opacity);
+        box-shadow: 0px 4px 4px var(--primary-opacity);
+	}
+
+    .category .list:hover {
+        box-shadow: 0px 4px 4px var(--primary-opacity);
+	}
+</style>
