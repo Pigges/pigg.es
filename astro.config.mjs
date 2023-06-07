@@ -8,7 +8,7 @@ import htmlMinifier from "astro-html-minifier";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://pigg.es',
+  site: 'https://www.pigg.es',
   integrations: [mdx(), sitemap(), robotsTxt({}), htmlMinifier()],
   markdown: {
     rehypePlugins: [[rehypeExternalLinks, {
