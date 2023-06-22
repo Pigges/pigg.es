@@ -16,7 +16,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Layout title={entry.data.title} description="Hi! I'm Philip. Welcome to my website!">
+<Layout title={entry.data.title} description={entry.data.description}>
     <div class="wrapper">
         <div class="blog">
             <div class="meta">
