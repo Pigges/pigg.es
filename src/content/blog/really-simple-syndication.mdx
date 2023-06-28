@@ -1,0 +1,129 @@
+---
+title: Really Simple Syndication
+description: "Let's surf the internet like a pro!"
+pubDate: 2023-06-28
+slug: 'really-simple-syndication'
+tags: ["rss", "freshrss"]
+---
+
+Today's internet is, in many ways, bloated.<br/>
+There are ads and sponsored posts everywhere.<br/>
+In the past, **you** made the decisions on what you wanted to do.<br/>
+Nowadays, you are at the mercy of big tech companies such as Google, Facebook, and Amazon and their algorithms.
+
+Let us try taking back our control using something called RSS.
+
+RSS is a standardized format for defining web feeds.<br/>
+This means that by using these feeds, you don't have to manually browse all the invididual sites and get absorbed by all the other things you didn't intend to check out.<br/>
+You simply get a feed of what you want.
+
+
+## Benefits?
+
+So what are the benefits of using RSS feeds, you may ask?
+- Organize all your feeds in one place.
+- **You** get to choose what you want to see.
+- Don't let the algorithm choose for **you**.
+
+You can easily organize all your feeds in one place,
+and you don't have to worry about going out to each and every site to get the latest updates.<br/>
+Instead of letting the algorithm choose, you get to be in control of what you want to stay up-to-date about.
+
+## Where is it used?
+Many of the websites you repeatedly visit may already offer RSS feeds
+for their content.
+
+* To get the RSS feed for any Youtube Channel, you could use this template below by changing the \<CHANNEL_ID> with the channel you want.
+    ```
+    https://www.youtube.com/feeds/videos.xml?channel_id=<CHANNEL_ID>
+    ```
+
+* To get the RSS feed for any Subreddit, you could use this template below by changing \<SUBREDDIT> with the subreddit you want.
+    ```
+    https://www.reddit.com/r/<SUBREDDIT>.rss
+    ```
+
+Other sites may even have a direct link to their RSS feed.
+It may say something like "RSS Feed" in the link.
+
+Other times, it might be an icon that looks something like this:
+
+![RSS Icon](/assets/blog/rss.svg)
+
+However, sometimes these feeds can be a little tricky to find.<br/>
+In those cases, it might be useful to have an extra tool up your sleeve.
+
+There is an extension called *[Get RSS Feed URL](https://github.com/shevabam/get-rss-feed-url-extension)*, which can help you grab these.<br/>
+This can even grab the feeds for YouTube and Reddit for you.
+Below is a list of where you can get it installed.
+* For Chrome or Chromium-based Browsers ([link](https://chrome.google.com/webstore/detail/get-rss-feed-url/kfghpdldaipanmkhfpdcjglncmilendn))
+* For Firefox browsers ([link](https://addons.mozilla.org/en-US/firefox/addon/get-rss-feed-url/))
+
+<picture>
+  <source srcset="/assets/blog/get-rss-feed-url.webp"/>
+  <img src="/assets/blog/get-rss-feed-url.png" alt="Get RSS Feed Demo"/>
+</picture> 
+
+## How to use it
+In order to use an RSS feed, you need to have an RSS Reader.
+This could either be something built for a browser, desktop computer, or mobile device.
+
+The reader I really recommend is [FreshRSS](https://www.freshrss.org).<br/>
+Which you can either self-host or use any of the [community-hosted instances](https://freshrss.org/cloud-providers.html).<br/>
+I like this one because of the interface and because it doesn't bloat you with a bunch of ads if you don't pay.
+
+Personally, I went with the self-hosting option because I like to be in control of the services I use.<br/>
+The way I have it set up is by running FreshRSS on my Raspberry Pi and then just connecting to the web interface.
+
+<picture>
+  <source srcset="/assets/blog/freshrss-demo.webp"/>
+  <img src="/assets/blog/freshrss-demo.png" alt="FreshRSS Demo"/>
+</picture> 
+
+If you didn't find this reader interesting or want to try something else,
+* [Feedly](https://feedly.com) (ads) *freemium*
+* [Feeder](https://feeder.co) *freemium*
+* [Inoreader](https://www.inoreader.com) (ads) *freemium*
+
+I haven't tried any of these myself, but they are among the more popular ones.
+
+## How does it work?
+
+RSS is basically a plain text file formatted in XML.<br/>
+These files typically have the file extension ".xml" or ".rss".<br/>
+This makes it relatively easy to read, both for computers and humans.<br/>
+An RSS reader is essentially just refreshing this feed every once in a while to grab any changes.
+
+<div>
+Below is an example of what a feed could look like.
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+ <title>RSS Title</title>
+ <description>This is an example of an RSS feed</description>
+ <link>http://www.example.com/main.html</link>
+ <copyright>2020 Example.com All rights reserved</copyright>
+ <lastBuildDate>Mon, 6 Sep 2010 00:01:00 +0000</lastBuildDate>
+ <pubDate>Sun, 6 Sep 2009 16:20:00 +0000</pubDate>
+ <ttl>1800</ttl>
+
+ <item>
+  <title>Example entry</title>
+  <description>Here is some text containing an interesting description.</description>
+  <link>http://www.example.com/blog/post/1</link>
+  <guid isPermaLink="false">7bd204c6-1655-4c27-aeee-53f933c5395f</guid>
+  <pubDate>Sun, 6 Sep 2009 16:20:00 +0000</pubDate>
+ </item>
+
+</channel>
+</rss>
+```
+Source: [Wikipedia](https://en.wikipedia.org/wiki/RSS)
+</div>
+
+
+## Conclusion
+
+I've been using RSS for quite a while now, and I can say that it has definitely helped me to be more aware of the content I am consuming.<br/>
+It also feels empowering to know that I am the one in control and not algorithms that are made to profit big tech.
