@@ -12,7 +12,7 @@ export async function get() {
     site: 'https://www.pigg.es',
     items: blog.map((post) => ({
       link: `/blog/${post.slug}/`,
-      content: sanitizeHtml(parser.render(post.body), {
+      content: sanitizeHtml((parser.render(post.body)).replace('<br/>', ''), {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
       }),
       ...post.data
