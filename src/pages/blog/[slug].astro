@@ -1,7 +1,11 @@
 ---
+import '../../styles/blog.css'
 import getReadingTime from 'reading-time';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+export const components = {code: CodeBlock};
 
 import { getCollection } from 'astro:content';
 
@@ -35,49 +39,3 @@ const { Content } = await entry.render();
         </div>
     </div>
 </Layout>
-<style is:global>
-    .blog {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .blog .post {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .blog .post a {
-        color: #08f;
-        text-decoration: none;
-    }
-
-    .blog .post a:hover {
-        text-decoration: underline;
-    }
-
-    .blog .post img {
-        max-width: 300px;
-    }
-
-    pre {
-        margin: 5px 0;
-        padding: 5px 10px;
-        border-radius: 20px;
-        width: fit-content;
-        max-width: 100%;
-        overflow-x: scroll;
-    }
-
-    @media only screen and (max-width: 500px) {
-        .blog .post {
-            margin: auto;
-        }
-
-        .blog .post img {
-            display: block;
-            margin: auto;
-        }
-    }
-</style>

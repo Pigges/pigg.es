@@ -1,0 +1,129 @@
+@media print {
+    *,
+    *:before,
+    *:after {
+      background: transparent !important;
+      color: #000 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+  
+    .blog a,
+    .blog a:visited {
+      text-decoration: underline;
+    }
+  
+    .blog a[href]:after {
+      content: " (" attr(href) ")";
+    }
+  
+    .blog abbr[title]:after {
+      content: " (" attr(title) ")";
+    }
+  
+    .blog a[href^="#"]:after,
+    .blog a[href^="javascript:"]:after {
+      content: "";
+    }
+  
+    pre,
+    blockquote {
+      border: 1px solid #999;
+      page-break-inside: avoid;
+    }
+  
+    thead {
+      display: table-header-group;
+    }
+  
+    tr,
+    img {
+      page-break-inside: avoid;
+    }
+  
+    img {
+      max-width: 100% !important;
+    }
+  
+    p,
+    h2,
+    h3 {
+      orphans: 3;
+      widows: 3;
+    }
+  
+    h2,
+    h3 {
+      page-break-after: avoid;
+    }
+}
+
+.blog {
+    margin: 0 auto;
+    max-width: 48rem;
+    line-height: 1.45;
+    padding: .25rem;
+}
+
+.blog .post {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.blog .post a {
+    color: #08f;
+    text-decoration: none;
+}
+
+.blog .post a:hover {
+    text-decoration: underline;
+}
+
+.blog .post img {
+    display: block;
+    margin: 0 auto;
+    max-width: 90%;
+    /* max-width: 300px; */
+}
+
+.blog .note {
+  margin-top: 10px;
+}
+
+pre {
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+pre, code {
+    width: 100%;
+}
+
+blockquote {
+    border-left: 8px solid #fafafa;
+    padding: 1rem;
+}
+
+
+/* https://github.com/mrmrs/fluidity */
+
+img,
+canvas,
+iframe,
+video,
+svg,
+select,
+textarea {
+  max-width: 100%;
+}
+
+.post h1,
+.post h2,
+.post h3 {
+  border-bottom: 2px solid var(--primary-opacity);
+  margin-bottom: .15rem;
+  padding-bottom: .2rem;
+}

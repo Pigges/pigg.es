@@ -3,13 +3,18 @@ import rehypeExternalLinks from 'rehype-external-links';
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
-
 import htmlMinifier from "astro-html-minifier";
+import AutoImport from 'astro-auto-import';
+import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
+
+import preload from "astro-preload";
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.pigg.es',
-  integrations: [mdx(), sitemap(), robotsTxt({}), htmlMinifier()],
+  integrations: [AutoImport({
+    imports: [mdxCodeBlockAutoImport('./src/components/CodeBlock.astro')]
+  }), MDXCodeBlocks(), mdx(), sitemap(), robotsTxt({}), htmlMinifier(), preload()],
   markdown: {
     rehypePlugins: [[rehypeExternalLinks, {
       content: {
