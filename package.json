@@ -15,7 +15,7 @@
     "@astrojs/rss": "4.0.10",
     "@astrojs/sitemap": "^3.2.1",
     "astro": "5.0.3",
-    "astro-preload": "^1.1.2",
+    "astro-auto-import": "^0.4.4",
     "astro-robots-txt": "^0.5.0",
     "chroma-js": "^2.6.0",
     "markdown-it": "^13.0.2",
@@ -26,7 +26,6 @@
     "sass": "^1.82.0"
   },
   "devDependencies": {
-    "astro-auto-import": "^0.3.2",
     "astro-mdx-code-blocks": "^0.0.6"
   }
 }
