@@ -1,0 +1,98 @@
+---
+import { Image, Picture } from 'astro:assets';
+import avatar from '../assets/avatar.png';
+---
+
+<div class="hero glowing rounded">
+    <div class="text">
+        <h1>Hello, I'm <span class="name">Philip Ahlqvist</span>.</h1>
+        <p>
+            A 19-year-old enthusiast from Sweden &#x1F1F8;&#x1F1EA;,
+            who is deeply passionate about computer programming.
+            I'm always seeking fascinating new projects to dive into.
+        </p>
+    </div>
+    <div class="avatar">
+        <Picture src={"https://avatars.githubusercontent.com/u/54172787?v=4"} formats={['avif', 'webp']} alt="" width="320" height="320">
+    </div>
+</div>
+<style>
+    .hero {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 2em;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+        background-color: var(--secondary-opacity);
+        border: 1px solid var(--accent);
+        overflow: hidden;
+    }
+
+    .hero h1 {
+        font-weight: normal;
+        color: var(--primary);
+    }
+
+    .hero .avatar {
+        
+        grid-area: 1 / 4 / 2 / 5;
+        /* border: 1px solid var(--primary); */
+        width: 100%;
+        overflow: hidden;
+        /* visibility: hidden; */
+    }
+
+    .hero .avatar picture {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        overflow: hidden;
+        max-width: 100%;
+        height: 100%;
+        aspect-ratio: 1;
+    }
+    
+    .hero .avatar picture > * {
+        width: 100%;
+        height: 100%;
+        /* aspect-ratio: 1; */
+    }
+
+    .hero .text {
+        grid-area: 1 / 1 / 2 / 4;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        padding: 1em;
+        /* background-color: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity); */
+    }
+
+    .hero .text .name {
+		font-weight: bold;
+		color: #08f;
+	}
+
+    @media only screen and (max-width: 1000px) {
+        .hero {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            padding: 1em;
+        }
+
+        .hero > * {
+        }
+
+        .hero .text {
+            text-align: center;
+        }
+
+        .hero .avatar {
+            justify-content: center;
+            width: 75%;
+        }
+    }
+</style>

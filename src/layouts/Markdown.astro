@@ -13,7 +13,7 @@ const { frontmatter } = Astro.props;
 				<h1>{frontmatter.title}</h1>
 				<p><em>{frontmatter.description}</em></p>
 			</div>
-			<div class="hb"></div>
+			<!-- <div class="hb"></div> -->
 			<div class="text">
 				<slot />
 			</div>
@@ -24,9 +24,9 @@ const { frontmatter } = Astro.props;
     .md {
         display: flex;
         flex-direction: column;
-        margin: auto;
+        /* margin: auto; */
         gap: 20px;
-        max-width: 600px;
+        /* max-width: 600px; */
     }
 
     .md .text {
@@ -58,6 +58,6 @@ const { frontmatter } = Astro.props;
 	}
 
     .md .meta {
-        text-align: center;
+        /* text-align: center; */
     }
 </style>

@@ -1,9 +1,13 @@
 ---
+import * as config from '../config';
+
 const today = new Date();
 ---
 
-<footer>
-    <div class="left"></div>
+<footer transition:persist class="glowing-hover rounded">
+    <div class="left">
+        <a href={config.REPOSITORY} target="_blank">Made with <span class="tag">&#9829;</span> using Astro.</a>
+    </div>
     <div class="right">
         <p class="copy">&copy; {today.getFullYear()} Philip Ahlqvist. All rights reserved.</p>
     </div>
@@ -14,9 +18,30 @@ const today = new Date();
         justify-content: space-between;
         align-items: center;
         min-height: 50px;
-        padding: 0 40px;
+        padding: 0 2em;
         background-color: var(--secondary-opacity);
-        box-shadow: 0px -4px 4px var(--primary-opacity);
-        border-top: 1px solid var(--primary);
+        
+        border: 1px solid var(--primary-opacity);
+        margin: 0.5em 0;
+        transition: 0.5s;
+        font-size: small;
     }
+
+    footer .left, footer .right {
+        display: flex;
+        align-items: center;
+    }
+
+    footer:hover {
+        transform: translateY(-0.5em);
+    }
+
+    footer a {
+        text-decoration: none;
+    }
+
+    footer a .tag {
+        color: red;
+    }
+
 </style>

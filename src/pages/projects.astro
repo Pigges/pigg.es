@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import * as config from '../config';
+
+---
+
+<Layout title="Projects" description="Hi! I'm Philip. Welcome to my website!">
+    <div>
+        <h1>Projects</h1>
+        <p>
+            Below is a list of some of the exciting projects I've been working on recently.
+            These projects showcase my commitment to delivering high-quality results.
+            I'm always open to collaborating and exploring new ideas.
+            If you have a project in mind that aligns with my projects and skills, don't hesitate to get in touch.
+        </p>
+    </div>
+    <hr/>
+    <section id="projects">
+        {config.PROJECTS.map(project=>(
+            <div class="project box rounded">
+                <h2>
+                    {project.logo && (
+                        <Image src={project.logo} width={35} height={35} alt={project.title} />
+                    )}
+                    {project.title}
+                </h2>
+                <p>{project.description}</p>
+                {project.notice && (
+                    <p class="notice"><em>{project.notice}</em></p>
+                )}
+                <div class="links">
+                    {project.links.map(link=>(
+                        <a class="rounded box glowing-hover" href={link.href}>{link.title}</a>
+                    ))}
+                </div>
+            </div>
+        ))}
+    </section>
+</Layout>
+<style>
+    #projects {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    #projects .project {
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        border-color: var(--accent);
+    }
+
+    #projects .project .links {
+        display: flex;
+        gap: 2em;
+        margin-top: 1em;
+    }
+
+    #projects .project .links a {
+        text-decoration: none;
+        font-weight: bold;
+        border-color: var(--accent);
+    }
+
+    #projects .notice {
+        font-size: small;
+    }
+
+    #projects h2 {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+    }
+</style>

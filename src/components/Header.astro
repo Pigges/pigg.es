@@ -1,14 +1,14 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import Toggle from './ThemeChanger.astro'
+import * as config from '../config';
+
 ---
 
-<header>
+<header class="wrapper glowing-hover rounded">
     <div class="left">
         <a href="/" class="title">Pigg.es</a>
     </div>
     <div class="right">
-        <Toggle />
         <label class="menu" for="menu">
             <input type="checkbox" id="menu">
             <div class="content">
@@ -22,9 +22,9 @@ import Toggle from './ThemeChanger.astro'
                     <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
                 </svg>
                 <nav class="links">
-                    <HeaderLink href="/links">Links</HeaderLink>
-                    <HeaderLink href="/blog">Blog</HeaderLink>
-                    <HeaderLink href="/about">About</HeaderLink>
+                    {config.HEADERLINKS.map(link=>(
+                        <HeaderLink href={link.href}>{link.title}</HeaderLink>
+                    ))}
                 </nav>
             </div>
         </label>
@@ -33,13 +33,23 @@ import Toggle from './ThemeChanger.astro'
 <style>
     header {
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        max-width: 1250px;
         min-height: 50px;
         background-color: var(--secondary-opacity);
-        box-shadow: 0px 4px 4px var(--primary-opacity);
-        border-bottom: 1px solid var(--primary);
-        transition: padding 1s;
+        margin: auto;
+        margin-top: 0.5em;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 1px solid var(--primary-opacity);
+        /* transition: padding 1s; */
+        transition: 0.5s;
+    }
+
+    header:hover {
+        translate: 0 1em;
     }
 
     header .left, header .right {
@@ -54,10 +64,12 @@ import Toggle from './ThemeChanger.astro'
         font-size: 1.5rem;
         font-weight: bold;
         text-decoration: none;
+        color: var(--accent);
     }
 
     header .right {
         display: flex;
+        flex-direction: row-reverse;
         align-items: center;
         gap: 20px;
     }

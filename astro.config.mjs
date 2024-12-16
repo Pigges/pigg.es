@@ -6,14 +6,16 @@ import robotsTxt from "astro-robots-txt";
 import AutoImport from 'astro-auto-import';
 import MDXCodeBlocks, { mdxCodeBlockAutoImport } from 'astro-mdx-code-blocks';
 
-import preload from "astro-preload";
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.pigg.es',
+  prefetch: true,
+  image: {
+    domains: ["images.credly.com"],
+  },
   integrations: [AutoImport({
     imports: [mdxCodeBlockAutoImport('./src/components/CodeBlock.astro')]
-  }), MDXCodeBlocks(), mdx(), sitemap(), robotsTxt({}), preload()],
+  }), MDXCodeBlocks(), mdx(), sitemap(), robotsTxt({})],
   markdown: {
     rehypePlugins: [[rehypeExternalLinks, {
       content: {
