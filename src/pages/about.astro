@@ -1,0 +1,256 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image, Picture } from 'astro:assets';
+import banner from "../assets/about-banner.webp";
+
+const tagLines = [
+    {
+        text: "Software",
+        icon: "⚙️"
+    },
+    {
+        text: "Linux Geek",
+        icon: "🐧"
+    },
+    {
+        text: "Philosopher",
+        icon: "🤔"
+    },
+]
+
+const languages = [
+    {
+        name: "Swedish",
+        level: "Native",
+        flag: "🇸🇪",
+        description: "Born and raised in Sweden — this is the language of home and family. (often the language I question my knowledge of the most 😀)"
+    },
+    {
+        name: "English",
+        level: "Fluent (C1-C2)",
+        flag: "🇺🇸",
+        description: "Learned through school, endless hours online, coding documentation, and communicating with the global dev community. Comfortable reading, writing, and speaking."
+    },
+    {
+        name: "French",
+        level: "Elementary (A1-A2)",
+        flag: "🇫🇷",
+        description: "Studied in school for a few years. Can handle basic conversations and read simple texts without too much embarrassment. Still rusty, but I enjoy French music and films."
+    },
+    {
+        name: "Russian",
+        level: "Beginner (A1)",
+        flag: "🇷🇺",
+        description: "Can read the alphabet and say 'привет' without butchering it too badly. Progress is slow, but the journey is fun."
+    },
+    {
+        name: "Latin",
+        level: "Basic reading knowledge",
+        flag: "📜",
+        description: "Self-taught out of pure curiosity and appreciation of how it has shaped modern languages. For any one interested, the Lingua Latina series is a great resource."
+    },
+]
+
+---
+
+<Layout title="About" description="Here is a list of places where you can find me.">
+    <div class="wrapper">
+        <div>
+            <div class="banner glowing rounded">
+            <div class="background rounded">
+                <Image src={banner} alt="A description of my image." />
+            </div>
+            <div class="filter rounded"></div>
+            <Picture class="avatar glowing" src={"https://avatars.githubusercontent.com/u/54172787?v=4"} formats={['avif', 'webp']} alt="" width="200" height="200">
+        </div>
+        <div class="bio">
+            <h1>Philip Ahlqvist</h1>
+            <p class="tagline">{tagLines.map(tag=>`${tag.icon} ${tag.text}`).join(' • ')}</p>
+        </div>
+        <!-- Your text content -->
+        <section id="languages" class="section languages">
+             <h2 class="section-title">🗣️ Languages</h2>
+            <p>Over the years I've developed an interest in language learning.</br>Here's a list of some that I'm confident enough to call acquired:</p>
+            <div class="languages-grid">
+                {languages.map(language=>(
+                    <div class="language-item box rounded glowing-hover">
+                        <h3><span class="flag">{language.flag}</span> {language.name}</h3>
+                        <p class="level">{language.level}</p>
+                        <p class="description">{language.description}</p>
+                    </div>
+                ))}
+            </div>
+        </section>
+        </div>
+  <div class="relative z-10 px-8 text-white max-w-4xl">
+
+    <p class="text-xl md:text-2xl">
+      A 20-year-old computer enthusiast from Sweden 🇸🇪, who's deeply passionate about computer programming. 
+      I'm always seeking fascinating new projects to dive into.
+    </p>
+  </div>
+        <p>
+            [Hero: Full-width header image or gradient + tagline]
+"Hi, I'm Philip Ahlqvist—coder, tinkerer, and forest dreamer from Sweden."
+
+[Section 1: The Non-Tech Me – Personal Vibes]
+[Photo: You hiking, by a lake, or cabin-inspired (nod to your "summer camp lake sunset" banner love)]
+
+Beyond the terminal, I'm a guy who recharges in Sweden's wilds—hiking through pine forests, chasing northern lights (aurora season hits hard up here), or chilling by a campfire with friends. Born and raised in [your town/region, e.g., "small-town Småland vibes"], I grew up tinkering: first with Legos, then old PCs (shoutout that Dell in your kid pic). 
+
+Coffee addict ☕ (black, strong, like my backend code), amateur photographer (moody forest shots on my phone), and unapologetic FOSS advocate—self-hosting Invidious at inv.pigg.es because Big Tech privacy policies? Nah. Free time? Binge Swedish true crime pods, strum guitar badly, or plan my next cabin build (log by log, no IKEA shortcuts). Life motto: "Code runs the world, but nature debugs the soul."
+
+[Fun Fact Grid – 3-4 Cards]
+- ❤️ Linux daily-driver since 12 (Arch btw)
+- 🏞️ Dream spot: A self-hosted server in a off-grid stuga
+- 📚 Reading now: "The Cathedral and the Bazaar" + Nordic noir
+- 🚀 Side quest: Optimizing SearxNG on git.pigg.es
+
+[Section 2: Deeper Tech Dive – Build on Homepage]
+[Image: Your current rig? Terminal screenshot? Or custom viz below]
+
+Home gave the highlights—here's the full stack. Web dev is my playground (HTML/CSS/TS for pixel-perfect UIs like this site, Astro for blazing builds). Backend's my ❤️: Python/Django/Flask for APIs that scale, C++ for performance crunches. Databases? PostgreSQL for relational magic, MongoDB when schemas flex. Dockerized everything—deployed streamable Postgres clusters, Kubernetes experiments on my home lab (status.pigg.es tracks it live).
+
+Linux isn't a skill, it's home—daily driver for dev, servers, even my router. Recent wins:
+- Custom Invidious instance: Privacy-first YouTube, zero tracking.
+- SearxNG meta-search: Open meta-engine dodging Google spies.
+- Blobben.se: Ironic blob bureaucracy satire (still WIP, but the bounce animation slaps).
+- High school tech program: Info/Media Tech focus—turned "endless hours" into pro skills.
+
+Cert stack (updated/badges like home):
+- Future Proof Economies: Workforce Ready
+- IC3 Digital Literacy GS6 Level 1
+- [Your others] + any 2025/26 adds?
+
+[Section 3: Now What? – Call to Action]
+Open to collabs: FOSS contributions, indie projects, or coffee chats in Stockholm/Göteborg. Hit the contact form, or ping @pigges117 on X. Let's build something endless-hour-worthy.
+
+[Footer Visual: That abstract neon circuit you were eyeing—spans full-width under all this]
+        </p>
+        </div>
+    </div>
+</Layout>
+<style>
+    .wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        gap: 1em;
+    }
+
+    .section {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        padding: 0 2em;
+    }
+
+    .bio {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        width: fit-content;
+        margin: -10px auto;
+        text-align: center;
+        text-shadow: 0 0 20px var(--accent-opacity);
+        padding: 1em;
+    }
+    
+    .bio h1 {
+        color: var(--primary);
+        
+    }
+
+    .banner {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: 25vh;
+        background-color: var(--accent);
+        margin-bottom: 2em;
+    }
+
+    .banner .filter {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+    }
+
+    .banner .background {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        outline: 1px solid var(--primary-opacity);
+    }
+
+
+
+    .banner .avatar {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -2em;
+        border-radius: 50%;
+        outline: 1px solid var(--accent-opacity);
+    }
+
+    .tagline {
+        text-align: center;
+        font-size: 1.4rem;
+        margin-top: -20px;        /* Pulls it up to overlap slightly */
+        font-weight: 600;
+        text-shadow: 0 0 15px var(--accent-opacity);
+    }
+
+    .bio .tagline .dot {
+        color: var(--primary);
+    }
+
+    .languages .languages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .language-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+    }
+    
+    .language-item h3 {
+        font-size: 1.8rem;
+        margin: 0 0 0.4rem;
+        color: var(--accent);
+    }
+
+    .level {
+        margin: 0 0 0.8rem;
+        font-weight: 600;
+        color: var(--accent);
+        opacity: 0.9;
+    }
+
+    .description {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.5;
+        opacity: 0.85;
+        max-width: 280px;
+    }
+
+/* Optional: subtle glow on hover for the whole card */
+.language-item:hover h3,
+.language-item:hover .level {
+  text-shadow: 0 0 15px var(--accent-opacity);
+}
+
+</style>

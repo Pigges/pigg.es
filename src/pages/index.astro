@@ -9,10 +9,28 @@ import { Image } from 'astro:assets';
     <Hero/>
     <!-- <hr/> -->
     <div class="content">
-        <div class="left">
-            <h2>Content</h2>
-            <!-- <Image class:list={["rounded", "glowing-hover"]} src={"https://status.pigg.es/api/badge/1/status?style=for-the-badge"} alt="status" width={113} height={28} /> -->
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque amet placeat tempore, excepturi mollitia animi voluptatum sunt consectetur suscipit ipsa, odit dolores? Aliquam officiis, laboriosam dolorem sequi assumenda dignissimos hic a temporibus totam laborum ad qui optio impedit minima enim praesentium non distinctio! Sit amet, minus reiciendis voluptatibus sequi aspernatur quo iure hic voluptas sunt doloremque eligendi facilis nulla molestiae assumenda quae enim officia deserunt eaque vitae adipisci ipsa eius nesciunt earum. Quae exercitationem cumque nisi natus voluptatum fugit numquam.</p>
+	<div class="left">
+	    <h2>Skills</h2>
+
+			<hr>
+		<p>
+				I have strong expertise in web development (<span class="tag">HTML</span>, <span class="tag">CSS</span>, <span class="tag">Javascript</span> and <span class="tag">Typescript</span>), as well as <span class="tag">Python</span> and <span class="tag">C++</span>.</br>
+				I'm experienced with databases like <span class="tag">PostgreSQL</span>, <span class="tag">MongoDB</span>
+				And I've worked extensively with <span class="tag">Docker</span> for streamlined, scalable deployments.
+				My deep understanding of the <span class="tag">Linux</span> operating system comes from daily usage and development tasks.
+				My passion <span class="tag">&#9829;</span> lies in back-end development, though I also enjoy front-end work.
+			</p>
+			</br>
+            <h2>Background</h2>
+			<hr>
+		<p>
+			From an early age, I've been fascinated in the <span class="tag">magics</span> of computing.
+			I wanted to figure out what made them <span class="tag">tick</span>.
+			What could you make them do? Anything?</br>
+				I was drawn to these questions like a <span class="tag">magnet</span>, spending endless hours learning about and writing different software.</br>
+			When starting high school, I enrolled in a technology-focused school, choosing a program with an emphasis on programming (<a href="https://ntigymnasiet.se/program/teknikprogrammet/informations-och-medieteknik/">Information and media technology</a>).
+			While there, I deepened my understanding of the topic, reinforcing what I have already learnt in a more professional and academic environment.
+		</p>
         </div>
         <aside>
             <Certificates />
@@ -20,6 +38,11 @@ import { Image } from 'astro:assets';
     </div>
 </Layout>
 <style>
+
+    .tag {
+	    color: var(--accent);
+	    font-style: italic;
+    }
 
     .content {
         display: grid;
@@ -34,10 +57,16 @@ import { Image } from 'astro:assets';
 
     .content > div {
         grid-area: 1 / 1 / 2 / 4;
-        padding: 1em;
+        padding: 0em 1em 1em 1em;
         /* background-color: var(--secondary-opacity);
         border: 1px solid var(--primary-opacity); */
 
+    }
+
+    .content .left {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 1em;
     }
 
     .content aside {
@@ -52,6 +81,9 @@ import { Image } from 'astro:assets';
             display: flex;
             flex-direction: column;
             gap: 2em;
+	}
+	.left {
+	    padding: 0;
         }
     }
 </style>

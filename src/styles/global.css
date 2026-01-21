@@ -1,5 +1,6 @@
 :root {
     --accent: #08f;
+    --accent-opacity: rgba(0, 136, 255, 0.6);
     --primary: #eee;
     --primary-opacity: rgba(255,255,255,0.3);
     --secondary: #111;
