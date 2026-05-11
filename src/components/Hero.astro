@@ -1,28 +1,46 @@
 ---
 import { Image, Picture } from 'astro:assets';
 import avatar from '../assets/avatar.png';
+import github from '../assets/github.svg';
+import linkedin from '../assets/linkedin.svg';
+import twitter from '../assets/twitter.svg';
+import discord from '../assets/discord.svg';
+import steam from '../assets/steam.svg';
+
+const socials = [
+    { name: "github", href: "https://github.com/Pigges", icon: github },
+    // { name: "linkedin", href: "https://linkedin.com/in/philipahlqvist", icon: linkedin },
+    { name: "twitter", href: "https://x.com/pigges117", icon: twitter },
+    { name: "discord", href: "https://discord.com/users/295886122117234688", icon: discord },
+    { name: "steam", href: "https://steamcommunity.com/id/pigges117/", icon: steam },
+];
 ---
 
-<div class="hero glowing rounded">
+<div class="hero rounded">
     <div class="text">
         <h1>Hello, I'm <span class="name">Philip Ahlqvist</span>.</h1>
         <p>
-            A 20-year-old computer enthusiast from Sweden &#x1F1F8;&#x1F1EA;,
+            A 20-year-old computer enthusiast from Sweden,
             who's deeply passionate about computer programming.
             I'm always seeking fascinating new projects to dive into.
         </p>
+        <div class="socials">
+            {socials.map(s => (
+                <a href={s.href} class="social" target="_blank" rel="noopener">
+                    <Image src={s.icon} alt={s.name} width="24" height="24" />
+                </a>
+            ))}
+        </div>
     </div>
     <div class="avatar">
-        <Picture src={"https://avatars.githubusercontent.com/u/54172787?v=4"} formats={['avif', 'webp']} alt="" width="320" height="320">
+        <Picture src={"https://avatars.githubusercontent.com/u/54172787?v=4"} loading="eager" formats={['avif', 'webp']} alt="" width="320" height="320">
     </div>
 </div>
 <style>
     .hero {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: 1fr;
-        grid-column-gap: 2em;
-        justify-content: space-between;
+        grid-template-columns: 3fr 1fr;
+        gap: 2em;
         align-items: center;
         margin: auto;
         background-color: var(--secondary-opacity);
@@ -36,44 +54,54 @@ import avatar from '../assets/avatar.png';
     }
 
     .hero .avatar {
-        
-        grid-area: 1 / 4 / 2 / 5;
-        /* border: 1px solid var(--primary); */
         width: 100%;
-        overflow: hidden;
-        /* visibility: hidden; */
     }
 
     .hero .avatar picture {
         display: flex;
-        justify-content: end;
-        align-items: center;
-        overflow: hidden;
-        max-width: 100%;
-        height: 100%;
-        aspect-ratio: 1;
+        justify-content: flex-end;
     }
     
     .hero .avatar picture > * {
         width: 100%;
-        height: 100%;
-        /* aspect-ratio: 1; */
     }
 
     .hero .text {
-        grid-area: 1 / 1 / 2 / 4;
         display: flex;
         flex-direction: column;
         gap: 1em;
-        padding: 1em;
-        /* background-color: var(--secondary-opacity);
-        border: 1px solid var(--primary-opacity); */
+        padding: 2em;
     }
 
     .hero .text .name {
 		font-weight: bold;
 		color: #08f;
 	}
+
+    .hero .socials {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .hero .socials .social {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity);
+        opacity: 0.7;
+        transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .hero .socials .social:hover {
+        opacity: 1;
+        transform: translateY(-2px);
+        border-color: var(--accent);
+    }
 
     @media only screen and (max-width: 1000px) {
         .hero {
@@ -83,16 +111,26 @@ import avatar from '../assets/avatar.png';
             padding: 1em;
         }
 
-        .hero > * {
-        }
-
         .hero .text {
             text-align: center;
+            align-items: center;
         }
 
         .hero .avatar {
-            justify-content: center;
-            width: 75%;
+            width: 180px;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .hero .avatar picture {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero .avatar picture > * {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     }
 </style>

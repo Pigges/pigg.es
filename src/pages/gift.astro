@@ -1,0 +1,110 @@
+---
+import { Picture } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Something for you 💫" description="I made something for you! Check it out">
+    <div class="gift">
+        <div class="container">
+            <div class="gif-wrapper">
+                <Picture src="https://c.tenor.com/x8v1oNUOmg4AAAAd/tenor.gif" alt="" width="500" height="500"></Picture>
+            </div>
+            <div class="lyrics">
+                <p>Never gonna give you up</p>
+                <p>Never gonna let you down</p>
+                <p>Never gonna run around</p>
+                <p>And desert you</p>
+                <p>Never gonna make you cry</p>
+                <p>Never gonna say goodbye</p>
+                <p>Never gonna tell a lie</p>
+                <p>And hurt you</p>
+            </div>
+        </div>
+        <meta http-equiv="refresh" content="8;url=https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+    </div>
+</Layout>
+<style>
+    .gift {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* min-height: 90vh; */
+        padding: 2rem;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+
+    .gif-wrapper {
+        border-radius: 0.5rem;
+        overflow: hidden;
+        max-width: 90vw;
+    }
+
+    .gif-wrapper :global(img) {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .lyrics {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%;
+    }
+
+    .lyrics p {
+        font-size: clamp(1rem, 3vw, 1.5rem);
+        font-weight: 800;
+        color: #fff;
+        text-shadow: 
+            0 0 10px rgba(0, 136, 255, 0.9),
+            0 0 20px rgba(0, 136, 255, 0.7),
+            0 0 30px rgba(0, 136, 255, 0.5),
+            2px 2px 8px rgba(0, 0, 0, 0.9);
+        margin: 0.3rem 0;
+        opacity: 0;
+        user-select: none;
+    }
+
+    .lyrics p:nth-child(1) { animation: fadeIn 0.6s ease-out 1s forwards; }
+    .lyrics p:nth-child(2) { animation: fadeIn 0.6s ease-out 1.5s forwards; }
+    .lyrics p:nth-child(3) { animation: fadeIn 0.6s ease-out 2s forwards; }
+    .lyrics p:nth-child(4) { animation: fadeIn 0.6s ease-out 2.5s forwards; }
+    .lyrics p:nth-child(5) { animation: fadeIn 0.6s ease-out 3s forwards; }
+    .lyrics p:nth-child(6) { animation: fadeIn 0.6s ease-out 3.5s forwards; }
+    .lyrics p:nth-child(7) { animation: fadeIn 0.6s ease-out 4s forwards; }
+    .lyrics p:nth-child(8) { animation: fadeIn 0.6s ease-out 4.5s forwards; }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .lyrics {
+            position: relative;
+            top: auto;
+            left: auto;
+            transform: none;
+            margin-top: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+    }
+</style>

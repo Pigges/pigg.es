@@ -6,7 +6,7 @@ import * as config from '../config';
 ---
 
 <Layout title="Projects" description="Hi! I'm Philip. Welcome to my website!">
-    <div>
+    <div class="title">
         <h1>Projects</h1>
         <p>
             Below is a list of some of the exciting projects I've been working on recently.
@@ -15,13 +15,12 @@ import * as config from '../config';
             If you have a project in mind that aligns with my projects and skills, don't hesitate to get in touch.
         </p>
     </div>
-    <hr/>
     <section id="projects">
         {config.PROJECTS.map(project=>(
-            <div class="project box rounded">
+            <div class="project">
                 <h2>
                     {project.logo && (
-                        <Image src={project.logo} width={35} height={35} alt={project.title} />
+                        <Image src={project.logo} width={24} height={24} alt={project.title} loading="eager" />
                     )}
                     {project.title}
                 </h2>
@@ -31,7 +30,7 @@ import * as config from '../config';
                 )}
                 <div class="links">
                     {project.links.map(link=>(
-                        <a class="rounded box glowing-hover" href={link.href}>{link.title}</a>
+                        <a href={link.href}>{link.title}</a>
                     ))}
                 </div>
             </div>
@@ -39,38 +38,77 @@ import * as config from '../config';
     </section>
 </Layout>
 <style>
+    .title {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .title > p {
+        color: var(--primary);
+        opacity: 0.6;
+        font-size: 1.1rem;
+    }
+
     #projects {
         display: flex;
         flex-direction: column;
-        gap: 1em;
+        gap: 0.75rem;
     }
 
-    #projects .project {
+    .project {
+        padding: 1rem;
+        background: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity);
+        border-radius: 0.5rem;
         display: flex;
         flex-direction: column;
-        padding: 1em;
+        gap: 0.5rem;
+        transition: border-color 0.2s;
+    }
+
+    .project:hover {
         border-color: var(--accent);
     }
 
-    #projects .project .links {
-        display: flex;
-        gap: 2em;
-        margin-top: 1em;
-    }
-
-    #projects .project .links a {
-        text-decoration: none;
-        font-weight: bold;
-        border-color: var(--accent);
-    }
-
-    #projects .notice {
-        font-size: small;
-    }
-
-    #projects h2 {
+    .project h2 {
         display: flex;
         align-items: center;
-        gap: 0.5em;
+        gap: 0.5rem;
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .project p {
+        margin: 0;
+        color: var(--primary);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        opacity: 0.8;
+    }
+
+    .project .notice {
+        font-size: 0.85rem;
+        opacity: 0.7;
+    }
+
+    .project .links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .project .links a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .project .links a:hover {
+        text-decoration: underline;
     }
 </style>

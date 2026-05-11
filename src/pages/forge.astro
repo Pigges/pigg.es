@@ -1,0 +1,132 @@
+---
+import { Picture, Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+
+const instances = [
+    {
+        title: "Invidious",
+        description: "Invidious is an alternative front-end to YouTube.",
+        logo: "https://avatars.githubusercontent.com/u/68407447",
+        badge: "https://status.pigg.es/api/badge/1/status?style=for-the-badge",
+        url: "https://inv.pigg.es/"
+    },
+    {
+        title: "SearXNG",
+        description: "SearXNG is a privacy-respecting, open metasearch engine.",
+        logo: "https://avatars.githubusercontent.com/u/80454229",
+        badge: "https://status.pigg.es/api/badge/5/status?style=for-the-badge",
+        url: "https://searx.pigg.es/"
+    },
+    {
+        title: "Forgejo",
+        description: "Forgejo is a self-hosted lightweight software forge.",
+        logo: "https://codeberg.org/avatars/dae8ab126a96f6fbd6942cf08ab92382",
+        badge: "https://status.pigg.es/api/badge/6/status?style=for-the-badge",
+        url: "https://git.pigg.es/"
+    },
+    {
+        title: "Miniflux",
+        description: "Minimalist and opinionated feed reader",
+        logo: "https://avatars.githubusercontent.com/u/10584991",
+        url: "https://miniflux.pigg.es/"
+    },
+    {
+        title: "Librarium",
+        description: "Yet another web frontent to the LBRY network.",
+        logo: "https://cdn.jsdelivr.net/gh/pigges/librarium@master/public/favicon.svg",
+        url: "https://lbry.se/"
+    }
+]
+
+---
+
+<Layout title="Forge" description="List of open-source tools that I host.">
+    <div class="title">
+        <h1>Forge</h1>
+        <p class="description">
+            Welcome to my Forge! I love self-hosting open-source tools—partly for privacy, mostly for my sanity—shared with the internet for free—because good tech deserves to roam.
+            If you know a <i>really cool</i> tool that you'd want me to host, feel free to reach out to me.
+        </p>
+    </div>
+
+    <div class="instances">
+        {instances.map(instance=>(
+            <a href={instance.url} target="_blank" class="instance">
+                <div class="instance-header">
+                    <Picture class="logo" src={instance.logo} alt={instance.title} formats={['webp', 'avif', 'jpg']} width="40" height="40" loading="eager"/>
+                    <h2>{instance.title}</h2>
+                </div>
+                <p>{instance.description}</p>
+                {instance.badge && (
+                    <Image class="badge" src={instance.badge} alt="status" width={113} height={28} loading="eager" />
+                )}
+            </a>
+        ))}
+    </div>
+</Layout>
+<style>
+    .title {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .title .description {
+        color: var(--primary);
+        opacity: 0.6;
+        font-size: 1.1rem;
+    }
+
+    .instances {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .instance {
+        padding: 1rem;
+        background: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity);
+        border-radius: 0.5rem;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        transition: border-color 0.2s;
+    }
+
+    .instance:hover {
+        border-color: var(--accent);
+    }
+
+    .instance .instance-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .instance .logo {
+        border-radius: 50%;
+    }
+
+    .instance h2 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .instance p {
+        margin: 0;
+        color: var(--primary);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        opacity: 0.8;
+    }
+
+    .instance .badge {
+        margin-top: 0.25rem;
+        border-radius: 0.25rem;
+    }
+</style>

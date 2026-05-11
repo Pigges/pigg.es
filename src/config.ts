@@ -2,9 +2,6 @@ export const REPOSITORY = "https://github.com/Pigges/pigg.es"
 
 export const HEADERLINKS = [
     {
-        title: "Links",
-        href: "/links"
-    }, {
         title: "Blog",
         href: "/blog"
     }, {

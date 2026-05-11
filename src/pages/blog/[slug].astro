@@ -4,38 +4,256 @@ import getReadingTime from 'reading-time';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/global.css';
 import CodeBlock from '../../components/CodeBlock.astro';
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 
 export const components = {code: CodeBlock};
-
-import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
   return blogEntries.map(entry => ({
-    params: { slug: entry.slug }, props: { entry },
+    params: { slug: entry.id }, props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await render(entry);
+
+const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString('en-gb', { year:"numeric", day:"numeric", month:"short"}).replaceAll(',', '');
+};
+
+const toc = headings.filter(h => h.depth >= 1 && h.depth <= 3);
+
+const isRemoteImage = entry.data.image && typeof entry.data.image === 'string' && entry.data.image.startsWith('http');
+const imageProps = isRemoteImage ? { width: entry.data.imageWidth, height: entry.data.imageHeight } : {};
+
+const publishedTime = entry.data.pubDate ? new Date(entry.data.pubDate).toISOString() : undefined;
 ---
 
-<Layout title={entry.data.title} description={entry.data.description}>
-    <div class="wrapper">
+<Layout 
+    title={entry.data.title} 
+    description={entry.data.description} 
+    image={entry.data.image}
+    author="Philip Ahlqvist"
+    publishedTime={publishedTime}
+    tags={entry.data.tags}
+    type="article"
+>
+    <div class="wrapper blog-container">
         <div class="blog">
-            <div class="meta">
-                <h1>{entry.data.title}</h1>
-                <p>{new Date(entry.data.pubDate).toLocaleDateString('en-gb', { year:"numeric", day:"numeric", month:"short"}).replaceAll(',', '')} &middot; {getReadingTime(entry.body).text}</p>
-            </div>
-            <p><em>{entry.data.description}</em></p>
-            <div class="hb"></div>
-            <div class="post">
-                <Content />
-            </div>
-            <div class="hb"></div>
-            <div class="note">
-                <a class="btn" href="/blog">Back</a>
+            <a href="/blog" class="back-link">← Back to Blog</a>
+            
+            {entry.data.image && (
+                <div class="header-image">
+                    <img src={entry.data.image} alt="" width={imageProps.width} height={imageProps.height} />
+                </div>
+            )}
+            
+            <div class="blog-content">
+                <div class="post-content">
+                    <div class="meta">
+                        <h1>{entry.data.title}</h1>
+                        <p>{formatDate(entry.data.pubDate)} · {getReadingTime(entry.body).text}</p>
+                    </div>
+                    <p class="description rounded"><em>{entry.data.description}</em></p>
+                    
+                    <div class="post">
+                        <Content />
+                    </div>
+                </div>
+                
+                {toc.length > 0 && (
+                    <aside class="toc">
+                        <nav>
+                            <h3>On this page</h3>
+                            <ul>
+                                {toc.map((heading) => (
+                                    <li class={`toc-depth-${heading.depth}`}>
+                                        <a href={`#${heading.slug}`}>{heading.text}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </aside>
+                )}
             </div>
         </div>
     </div>
 </Layout>
+
+<script>
+    document.addEventListener('astro:page-load', () => {
+        // TOC scroll tracking
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.toc a').forEach(a => a.classList.remove('active'));
+                    document.querySelector(`.toc a[href="#${id}"]`)?.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-100px 0px -66%' });
+
+        document.querySelectorAll('.post h1, .post h2, .post h3').forEach(h => observer.observe(h));
+    });
+</script>
+
+<style>
+    .blog-container {
+        display: flex;
+    }
+
+    .blog {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+        opacity: 0.6;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: opacity 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+        opacity: 1;
+        color: var(--accent);
+    }
+
+    .header-image {
+        margin: 0 0 1.5rem 0;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        border: 1px solid var(--primary-opacity);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 400px;
+        background-color: var(--secondary-opacity);
+    }
+
+    .header-image :global(img) {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .blog-content {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+
+    .post-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .toc {
+        position: sticky;
+        top: 100px;
+        width: 220px;
+        flex-shrink: 0;
+        background-color: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity);
+        border-radius: 0.75rem;
+        padding: 1rem;
+    }
+
+    .toc h3 {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.6;
+        margin-bottom: 0.75rem;
+        border: none;
+        padding: 0;
+    }
+
+    .toc ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .toc li {
+        margin: 0.4rem 0;
+    }
+
+    .toc-depth-3 {
+        padding-left: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .toc a {
+        color: var(--primary);
+        opacity: 0.6;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: opacity 0.2s, color 0.2s;
+        display: block;
+        padding: 0.2rem 0;
+    }
+
+    .toc a:hover {
+        opacity: 1;
+        color: var(--accent);
+    }
+
+    .toc a.active {
+        opacity: 1;
+        color: var(--accent);
+        border-left: 2px solid var(--accent);
+        padding-left: 0.5rem;
+        margin-left: -0.5rem;
+    }
+
+    @media (max-width: 1100px) {
+        .toc {
+            display: none;
+        }
+        
+        .blog-content {
+            flex-direction: column;
+        }
+        
+        .post-content {
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 600px) {
+        .blog {
+            padding: 0 0.5rem;
+        }
+        
+        .back-link {
+            margin-bottom: 1rem;
+        }
+        
+        .header-image {
+            margin-bottom: 1rem;
+            max-height: 250px;
+        }
+        
+        .meta h1 {
+            font-size: 1.5rem;
+        }
+        
+        .meta p {
+            font-size: 0.85rem;
+        }
+        
+        .post {
+            font-size: 1rem;
+        }
+        
+        .post h1 { font-size: 1.35rem; }
+        .post h2 { font-size: 1.2rem; }
+        .post h3 { font-size: 1.1rem; }
+    }
+</style>

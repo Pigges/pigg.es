@@ -59,52 +59,135 @@
 }
 
 .blog {
-    margin: 0 auto;
-    max-width: 48rem;
-    line-height: 1.45;
-    padding: .25rem;
+    line-height: 1.7;
+    padding: 0 1rem;
+}
+
+@media (max-width: 600px) {
+    .blog {
+        padding: 0 0.5rem;
+    }
+}
+
+.blog .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.blog .meta h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+    color: var(--accent);
+}
+
+.blog .meta p {
+    font-size: 0.95rem;
+    color: var(--primary);
+    opacity: 0.7;
+}
+
+.blog .description {
+  border: 1px solid var(--accent);
+  padding: 1em;
+  /* background-color: var(--accent); */
+}
+
+.blog > .note {
+  margin-top: 2rem;
 }
 
 .blog .post {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin: 20px 0;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.blog .post > *:first-child {
+    margin-top: 0;
+}
+
+.blog .post img {
+    display: block;
+    margin: 1rem auto;
+    max-width: 90%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--primary-opacity);
 }
 
 .blog .post a {
-    color: #08f;
+    color: var(--accent);
     text-decoration: none;
+    transition: text-decoration 0.2s;
 }
 
 .blog .post a:hover {
     text-decoration: underline;
 }
 
-.blog .post img {
-    display: block;
-    margin: 0 auto;
-    max-width: 90%;
-    /* max-width: 300px; */
-}
-
 .blog .note {
   margin-top: 10px;
 }
 
-pre {
-    margin: 5px 0;
-    padding: 5px 10px;
-    border-radius: 20px;
+/* Override Astro/Shiki code block backgrounds */
+.blog pre.astro-code,
+.blog .astro-code,
+.blog pre[class*="language-"] {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: var(--primary) !important;
 }
 
-pre, code {
-    width: 100%;
+/* Syntax highlighting tokens */
+.astro-code .line span {
+    color: var(--primary) !important;
+}
+
+.astro-code .token.keyword { color: var(--accent) !important; }
+.astro-code .token.string { color: #4ade80 !important; }
+.astro-code .token.function { color: #82aaff !important; }
+.astro-code .token.number { color: #ff9500 !important; }
+.astro-code .token.comment { color: #6a737d !important; }
+.astro-code .token.operator { color: var(--primary) !important; }
+.astro-code .token.punctuation { color: var(--primary) !important; }
+
+pre:not(figure pre) {
+    margin: 1rem 0;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--primary-opacity);
+    background-color: var(--secondary);
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Inline code */
+.blog .post code:not(pre code) {
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, monospace;
+    padding: 0.1em 0.4em;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: var(--accent);
+    font-size: 0.9em;
 }
 
 blockquote {
-    border-left: 8px solid #fafafa;
-    padding: 1rem;
+    border-left: 4px solid var(--accent);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    color: var(--primary);
+    opacity: 0.85;
+    line-height: 1.6;
+}
+
+blockquote p {
+    margin: 0;
+    color: var(--primary);
+    opacity: 0.85;
 }
 
 
@@ -124,6 +207,32 @@ textarea {
 .post h2,
 .post h3 {
   border-bottom: 2px solid var(--primary-opacity);
-  margin-bottom: .15rem;
-  padding-bottom: .2rem;
+  margin-bottom: .5rem;
+  padding-bottom: .3rem;
+  margin-top: 2rem;
+  scroll-margin-top: 100px;
+}
+
+.post h1 { font-size: 1.75rem; }
+.post h2 { font-size: 1.4rem; }
+.post h3 { font-size: 1.2rem; }
+
+.blog .post ul,
+.blog .post ol {
+  margin-top: -0.75em;
+}
+
+.blog .post li {
+    margin: 0.25rem 0;
+}
+
+.blog > p {
+    font-size: 1.15rem;
+    opacity: 0.85;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.blog strong {
+  color: var(--accent);
 }

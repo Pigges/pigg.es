@@ -1,0 +1,104 @@
+---
+const languages = [
+    {
+        name: "Swedish",
+        level: "Native",
+        flag: "🇸🇪",
+        description: "Born and raised in Sweden — this is the language of home and family. (often the language I question my knowledge of the most 😀)"
+    },
+    {
+        name: "English",
+        level: "Fluent",
+        flag: "🇺🇸",
+        description: "Started in school, then spent countless hours on my own to get where I am now. Learning English was what sparked my interest in language learning in the first place."
+    },
+    {
+        name: "French",
+        level: "Elementary",
+        flag: "🇫🇷",
+        description: "Studied in school for a few years. Can handle basic conversations and read simple texts without too much embarrassment."
+    },
+    {
+        name: "Russian",
+        level: "Beginner",
+        flag: "🇷🇺",
+        description: "Can read the alphabet and say 'привет' without butchering it too badly. Progress is slow, but the journey is fun."
+    },
+    {
+        name: "Latin",
+        level: "Basic reading knowledge",
+        flag: "📜",
+        description: "Self-taught out of pure curiosity and appreciation of how it has shaped modern languages. For any one interested, the Lingua Latina series by Hans Ørberg is a great resource."
+    },
+]
+---
+
+<div class="languages">
+    <ul>
+        {languages.map(language => (
+            <li>
+                <p class="title">
+                    {language.flag}
+                    <strong>{language.name}</strong>
+                    <em>{language.level}</em>
+                </p>
+                <p class="description">{language.description}</p>
+            </li>
+        ))}
+    </ul>
+</div>
+
+<style>
+    .languages > p {
+        color: var(--primary);
+        opacity: 0.85;
+        margin: 0;
+    }
+
+    .languages > ul {
+        list-style: none;
+        /* margin: 1.5rem 0 0; */
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .languages > ul > li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.5rem 0;
+    }
+
+    .languages > ul > li > .title {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .languages > ul > li > .title > span {
+        font-size: 1.25rem;
+        width: 2rem;
+        text-align: center;
+    }
+
+    .languages > ul > li > .title > strong {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .languages > ul > li > .title > em {
+        color: var(--accent);
+        font-size: 0.95rem;
+    }
+
+    .languages > ul > li > .description {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        opacity: 0.75;
+        padding-left: 2rem;
+    }
+</style>

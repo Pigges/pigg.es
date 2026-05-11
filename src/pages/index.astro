@@ -2,88 +2,149 @@
 import Layout from '../layouts/Layout.astro';
 import Certificates from '../components/Certificates.astro';
 import Hero from '../components/Hero.astro';
-import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const techStack = [
+    { icon: "[L]", name: "Linux" },
+    { icon: "[P]", name: "Python" },
+    { icon: "[C]", name: "C++" },
+    { icon: "[S]", name: "Postgres" },
+    { icon: "[M]", name: "MongoDB" },
+    { icon: "[D]", name: "Docker" },
+    { icon: "[K]", name: "K8s" },
+    { icon: "[A]", name: "Astro" },
+    { icon: "[T]", name: "TypeScript" },
+]
+
+const posts = await getCollection('blog');
+const recentPosts = posts
+    .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+    .slice(0, 3);
+
+const formatDate = (date: Date) => new Date(date).toLocaleDateString('en-gb', { year:"numeric", month:"short", day:"numeric"}).replace(',', '');
 ---
 
 <Layout description="Hi! I'm Philip. Welcome to my website!">
     <Hero/>
-    <!-- <hr/> -->
     <div class="content">
-	<div class="left">
-	    <h2>Skills</h2>
+        <div class="left">
+            <h2>About</h2>
+            <p>I've been fascinated by computers since I was young, always wondering what makes them tick. Now I spend my time building software, exploring Linux, and reading philosophy.</p>
+            <p>My main interests lie in system administration and back-end development. I self-host my own services because I care about privacy and keeping control of my own data.</p>
+            <a href="/about" class="more">More about me</a>
 
-			<hr>
-		<p>
-				I have strong expertise in web development (<span class="tag">HTML</span>, <span class="tag">CSS</span>, <span class="tag">Javascript</span> and <span class="tag">Typescript</span>), as well as <span class="tag">Python</span> and <span class="tag">C++</span>.</br>
-				I'm experienced with databases like <span class="tag">PostgreSQL</span>, <span class="tag">MongoDB</span>
-				And I've worked extensively with <span class="tag">Docker</span> for streamlined, scalable deployments.
-				My deep understanding of the <span class="tag">Linux</span> operating system comes from daily usage and development tasks.
-				My passion <span class="tag">&#9829;</span> lies in back-end development, though I also enjoy front-end work.
-			</p>
-			</br>
-            <h2>Background</h2>
-			<hr>
-		<p>
-			From an early age, I've been fascinated in the <span class="tag">magics</span> of computing.
-			I wanted to figure out what made them <span class="tag">tick</span>.
-			What could you make them do? Anything?</br>
-				I was drawn to these questions like a <span class="tag">magnet</span>, spending endless hours learning about and writing different software.</br>
-			When starting high school, I enrolled in a technology-focused school, choosing a program with an emphasis on programming (<a href="https://ntigymnasiet.se/program/teknikprogrammet/informations-och-medieteknik/">Information and media technology</a>).
-			While there, I deepened my understanding of the topic, reinforcing what I have already learnt in a more professional and academic environment.
-		</p>
+            <!-- <h2>Tech Stack</h2>
+            <div class="tech-grid">
+                {techStack.map(tech => (
+                    <span class="tech-item">{tech.name}</span>
+                ))}
+            </div> -->
+
+            <h2>Recent Posts</h2>
+            <div class="posts-section">
+                <div class="posts">
+                    {recentPosts.map(post => (
+                        <a href={`/blog/${post.id}`} class="post">
+                            <span class="date">{formatDate(post.data.pubDate)}</span>
+                            <h3>{post.data.title}</h3>
+                        </a>
+                    ))}
+                </div>
+                <a href="/blog" class="more">View all posts</a>
+            </div>
         </div>
         <aside>
             <Certificates />
         </aside>
     </div>
 </Layout>
+
 <style>
-
-    .tag {
-	    color: var(--accent);
-	    font-style: italic;
-    }
-
     .content {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: 1fr;
-        grid-column-gap: 2em;
+        grid-template-columns: 3fr 1fr;
+        gap: 2em;
     }
 
-    .content > * {
-        
+    h2 {
+        font-size: 1.5rem;
+        margin: 1rem 0 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--primary-opacity);
+        color: var(--primary);
     }
 
-    .content > div {
-        grid-area: 1 / 1 / 2 / 4;
-        padding: 0em 1em 1em 1em;
-        /* background-color: var(--secondary-opacity);
-        border: 1px solid var(--primary-opacity); */
-
+    .tech-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
 
-    .content .left {
-	    display: flex;
-	    flex-direction: column;
-	    gap: 1em;
+    .tech-item {
+        padding: 0.5rem 0.75rem;
+        background: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity);
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
     }
 
-    .content aside {
+    p {
+        color: var(--primary);
+        line-height: 1.6;
+        margin: 0 0 0.75rem;
+        opacity: 0.9;
+    }
+
+    .more {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+    .posts-section {
         display: flex;
         flex-direction: column;
-        gap: 1em;
-        grid-area: 1 / 4 / 2 / 5;
+        gap: 0.75rem;
     }
 
-    @media only screen and (max-width: 1000px) {
+    .posts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .post {
+        padding: 0.75rem 1rem;
+        background: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity);
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: border-color 0.2s;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .post:hover {
+        border-color: var(--accent);
+    }
+
+    .post .date {
+        font-size: 0.8rem;
+        color: var(--primary);
+        opacity: 0.6;
+    }
+
+    .post h3 {
+        margin: 0;
+        color: var(--primary);
+        font-size: 1rem;
+        font-weight: normal;
+    }
+
+    @media (max-width: 1000px) {
         .content {
-            display: flex;
-            flex-direction: column;
-            gap: 2em;
-	}
-	.left {
-	    padding: 0;
+            grid-template-columns: 1fr;
         }
     }
 </style>

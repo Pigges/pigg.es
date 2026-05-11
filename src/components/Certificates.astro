@@ -1,17 +1,31 @@
 ---
 import Badge from './Badge.astro';
+import fs from 'node:fs';
 
-const data = await(await fetch("https://www.credly.com/users/philip-ahlqvist/badges", {
-  headers: {
-    "Accept": "application/json"
-  }
-})).json();
+const cacheFile = '.certifications.json';
+
+async function fetchCertifications() {
+	// Use cache if available for DEV
+	if (import.meta.env.DEV && fs.existsSync(cacheFile)) return JSON.parse(fs.readFileSync(cacheFile, 'utf-8'));
+
+	// Fetch Credentials from Credly
+	const data = await (await fetch("https://www.credly.com/users/philip-ahlqvist/badges", {
+		headers: { "Accept": "application/json" }
+	})).json();
+
+	// Save Credentials as cache for DEV
+	if (import.meta.env.DEV) fs.writeFileSync(cacheFile, JSON.stringify(data));
+
+	return data;
+}
+
+const data = await fetchCertifications();
+
 
 ---
 
 <div id="certificates">
-	<h2>Certifications</h2>
-	<hr/>
+    <h2>Certifications</h2>
     <div class="badges">
       {data.data.map(c=>(
       <Badge id={c.id} name={c.badge_template.name} img={c.badge_template.image_url}/>
@@ -24,6 +38,14 @@ const data = await(await fetch("https://www.credly.com/users/philip-ahlqvist/bad
 		display: flex;
 		flex-direction: column;
 		gap: 1em;
+	}
+
+	#certificates h2 {
+		font-size: 1.5rem;
+		margin: 1rem 0 0.5rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 2px solid var(--primary-opacity);
+		color: var(--primary);
 	}
 
 	#certificates .badges {
