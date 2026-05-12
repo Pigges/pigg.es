@@ -1,0 +1,234 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image, Picture } from 'astro:assets';
+import banner from "../assets/about-banner.webp";
+import avatar from "../assets/avatar.png";
+import WorldMap from '../components/WorldMap.astro';
+import Languages from '../components/Languages.astro';
+import Principles from '../components/Principles.astro';
+import Hardware from '../components/Hardware.astro';
+
+const tagLines = [
+    {
+        text: "Software",
+    },
+    {
+        text: "Linux Geek",
+    },
+    {
+        text: "Philosopher",
+    },
+]
+---
+
+<Layout title="About" description="Here is a list of places where you can find me.">
+    <div>
+        <div class="banner rounded">
+        <div class="background rounded">
+            <Image src={banner} loading="eager" alt="Swedish Summer." />
+        </div>
+        <div class="filter rounded">
+            <Image class="avatar glowing-hover" loading="eager" src={avatar} alt="Me." width="200" height="200" />
+        </div>
+        
+    </div>
+    <div class="wrapper">
+        <div class="bio">
+            <h1>Philip Ahlqvist</h1>
+            <p class="tagline">{tagLines.map(tag=>`${tag.text}`).join(' • ')}</p>
+        </div>
+
+        <section id="about-me" class="box rounded">
+            <p class="about-text">
+                I'm a 20-year-old Swedish developer who enjoys building things in my spare time.
+                Outside of coding, I like spending time outdoors. Hiking, long walks, you name it.
+                Self-improvement is something I care deeply about, so I spend time reading books and pushing myself in different areas.
+            </p>
+            <p>
+                I'm an avid Arch Linux enjoyer since 2021. I got tired of the Windows treatment and sought for something different.
+                Linux allows me to build a system tailored exactly to how I want it to be.
+                I get to put the different pieces together however I want.
+                I fell in love with the concept of tiling window managers since the moment I switched.
+                It fits perfectly with my strive towards digital minimalism.
+            </p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>
+                If you want to reach me for collaboration or other reasons, easiest way to contact me is either by emailing me at <em>contact@[this domain name]</em>,
+                or through discord <em><a href="https://discord.com/users/295886122117234688">@pigges</a></em>. I will respond within a timely fashion if I deem it worthwhile.
+            </p>
+        </section>
+
+        <section id="forge">
+            <h2>Forge</h2>
+            <p>
+                I value privacy and control over my digital life, which is why I self-host various services. 
+                You can find a list of them on my <a href="/forge">/forge</a> page.
+                There's something satisfying about running your own infrastructure.
+            </p>
+        </section>
+
+        <section id="hardware">
+            <h2 class="section-title">Hardware</h2>
+            <p>Here's a quick overview of the devices I use daily. Nothing fancy, but they get the job done.</p>
+            <Hardware />
+        </section>
+
+        <section id="principles">
+            <h2 class="section-title">Principles</h2>
+            <p>These are things I've picked up over the years that I think have made my life better. Some took a long time to learn, others came from wanting to understand why things are the way they are.</p>
+            <Principles />
+        </section>
+
+        <section id="languages">
+            <h2 class="section-title">Languages</h2>
+            <p>Over the years I've developed an interest in language learning. Here's a list of some that I feel confident enough to share:</p>
+            <Languages />
+        </section>
+
+        <section id="travel">
+            <h2 class="section-title">Countries Visited</h2>
+            <p>Here's a map of the countries I've had the privilege of visiting:</p>
+            <WorldMap />
+        </section>
+    </div>
+</Layout>
+<style>
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        margin: 0 2em;
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    section:first-of-type {
+        /* margin-top: 0; */
+    }
+
+    .bio {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        width: fit-content;
+        margin: -10px auto;
+        text-align: center;
+        padding: 1em;
+    }
+    
+    .bio h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+    }
+
+    .hero-tags-grid {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .hero-tag {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .hero-tag-icon {
+        font-size: 1.1rem;
+    }
+
+    .hero-tag-text {
+        color: var(--primary);
+        font-size: 0.95rem;
+    }
+
+    .banner {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: 25vh;
+        background-color: var(--accent);
+        margin-bottom: 2em;
+        box-shadow: 0 4px 20px rgba(0, 136, 255, 0.3);
+    }
+
+    .banner .filter {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+    }
+
+    .banner .background {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        outline: 1px solid var(--primary-opacity);
+    }
+
+    .banner .avatar {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -2em;
+        border-radius: 50%;
+        border: 3px solid var(--accent);
+        box-shadow: 0 4px 20px rgba(0, 136, 255, 0.3);
+    }
+    
+    .banner .avatar.glowing-hover:hover {
+        transform: translateX(-50%) translateY(-2px);
+    }
+
+    .tagline {
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    section > h2 {
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--primary-opacity);
+        color: var(--primary);
+    }
+
+    a {
+        color: var(--accent);
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    #about-me {
+        padding: 1em;
+        border-color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+        .bio h1 {
+            font-size: 2rem;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+        }
+    }
+</style>

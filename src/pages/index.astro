@@ -1,142 +1,150 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Skill from '../components/Skill.astro';
-import Javascript from '../resources/svg/javascript.astro';
-import Python from '../resources/svg/python.astro';
-import Rust from '../resources/svg/rust.astro';
-import Nodejs from '../resources/svg/nodejs.astro';
-import Bun from '../resources/svg/bun.astro';
-import Tastro from '../resources/svg/astro.astro';
 import Certificates from '../components/Certificates.astro';
+import Hero from '../components/Hero.astro';
+import { getCollection } from 'astro:content';
+
+const techStack = [
+    { icon: "[L]", name: "Linux" },
+    { icon: "[P]", name: "Python" },
+    { icon: "[C]", name: "C++" },
+    { icon: "[S]", name: "Postgres" },
+    { icon: "[M]", name: "MongoDB" },
+    { icon: "[D]", name: "Docker" },
+    { icon: "[K]", name: "K8s" },
+    { icon: "[A]", name: "Astro" },
+    { icon: "[T]", name: "TypeScript" },
+]
+
+const posts = await getCollection('blog');
+const recentPosts = posts
+    .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+    .slice(0, 3);
+
+const formatDate = (date: Date) => new Date(date).toLocaleDateString('en-gb', { year:"numeric", month:"short", day:"numeric"}).replace(',', '');
 ---
 
-<Layout title="Pigges" description="Hi! I'm Philip. Welcome to my website!">
-	<div class="wrapper">
-		<div class="hero">
-			<div class="left">
-				<h1 class="title">Hello, I'm <span class="name">Pigges</span></h1>
-				<p>
-					Philip Ahlqvist, an 18-year-old enthusiast from Sweden &#127480&#127466,<br>
-					who is deeply passionate about computer programming.<br>
-					I'm always seeking fascinating new projects to dive into.<br><br>
-					<em>Projects section in the works.</em>
-				</p>
-				<div class="skills">
-					<Skill category="languages">
-						<div class="skill" title="Javascript"><Javascript/></div>
-						<div class="skill" title="Python"><Python/></div>
-						<div class="skill" title="Rust"><Rust/></div>
-					</Skill>
-					<Skill category="frameworks">
-						<div class="skill" title="NodeJS"><Nodejs/></div>
-						<div class="skill" title="Bun"><Bun/></div>
-						<div class="skill" title="Astro"><Tastro/></div>
-					</Skill>
-				</div>
-			</div>
-			<div class="right unselectable">
-				<img src="/assets/programming.svg" alt="an image of a person sitting at a computer and programming">
-			</div>
-		</div>
-	</div>
-	<div class="hb"></div>
-	<Certificates/>
+<Layout description="Hi! I'm Philip. Welcome to my website!">
+    <Hero/>
+    <div class="content">
+        <div class="left">
+            <h2>About</h2>
+            <p>I've been fascinated by computers since I was young, always wondering what makes them tick. Now I spend my time building software, exploring Linux, and reading philosophy.</p>
+            <p>My main interests lie in system administration and back-end development. I self-host my own services because I care about privacy and keeping control of my own data.</p>
+            <a href="/about" class="more">More about me</a>
+
+            <!-- <h2>Tech Stack</h2>
+            <div class="tech-grid">
+                {techStack.map(tech => (
+                    <span class="tech-item">{tech.name}</span>
+                ))}
+            </div> -->
+
+            <h2>Recent Posts</h2>
+            <div class="posts-section">
+                <div class="posts">
+                    {recentPosts.map(post => (
+                        <a href={`/blog/${post.id}`} class="post">
+                            <span class="date">{formatDate(post.data.pubDate)}</span>
+                            <h3>{post.data.title}</h3>
+                        </a>
+                    ))}
+                </div>
+                <a href="/blog" class="more">View all posts</a>
+            </div>
+        </div>
+        <aside>
+            <Certificates />
+        </aside>
+    </div>
 </Layout>
 
 <style>
-	.hero {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
+    .content {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 2em;
+    }
 
-	.hero .left {
-		display: flex;
-		flex-direction: column;
-		gap: 40px;
-	}
+    h2 {
+        font-size: 1.5rem;
+        margin: 1rem 0 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--primary-opacity);
+        color: var(--primary);
+    }
 
-	.hero .left .title {
-		font-size: 2rem;
-		font-weight: normal;
-	}
+    .tech-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
 
-	.hero .left .title .name {
-		font-weight: bold;
-		color: #08f;
-	}
+    .tech-item {
+        padding: 0.5rem 0.75rem;
+        background: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity);
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+    }
 
-	.hero .left .btn svg {
-		fill: var(--primary);
-		width: 1.2rem;
-	}
+    p {
+        color: var(--primary);
+        line-height: 1.6;
+        margin: 0 0 0.75rem;
+        opacity: 0.9;
+    }
 
-	.skills {
-		display: flex;
-		gap: 40px;
-	}
+    .more {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
 
-	.skills .skill {
-		width: 2rem;
-	}
+    .posts-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 
-	.hero .right {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 40%;
-		padding: 10px 20px;
-		border-radius: 20px;
-		background-color: var(--secondary-opacity);
-		box-shadow: 0px 4px 4px var(--primary-opacity);
-	}
+    .posts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 
-	.hero .right img {
-		width: 75%;
-		max-width: 500px;
-	}
+    .post {
+        padding: 0.75rem 1rem;
+        background: var(--secondary-opacity);
+        border: 1px solid var(--primary-opacity);
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: border-color 0.2s;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
 
-	@media only screen and (max-width: 1000px) {
-		.hero {
-			flex-direction: column;
-			margin: auto;
-			gap: 40px;
-			width: fit-content;
-		}
+    .post:hover {
+        border-color: var(--accent);
+    }
 
-		.hero .left .skills {
-			justify-content: center;
-		}
+    .post .date {
+        font-size: 0.8rem;
+        color: var(--primary);
+        opacity: 0.6;
+    }
 
-		.hero .right {
-			width: 100%;
-		}
-	}
+    .post h3 {
+        margin: 0;
+        color: var(--primary);
+        font-size: 1rem;
+        font-weight: normal;
+    }
 
-	@media only screen and (max-width: 500px) {
-		.hero {
-			flex-direction: column;
-			margin: auto;
-			gap: 40px;
-			width: fit-content;
-		}
-
-		.hero .left {
-			/* align-items: center; */
-		}
-
-		.hero .left .title, .hero .left p {
-			text-align: center;
-		}
-
-		.hero .left .skills {
-			text-align: center;
-			flex-direction: column;
-			align-items: center;
-		}
-
-		.hero .right {
-			display: none;
-		}
-	}
+    @media (max-width: 1000px) {
+        .content {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>

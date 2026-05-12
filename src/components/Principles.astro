@@ -1,0 +1,134 @@
+---
+const categories = [
+    {
+        title: "General",
+        items: [
+            {
+                principle: "Minimal consumption",
+                explanation: "I keep consumption to a minimum, both digital and physical. I've found that less clutter, less noise, and less distraction leads to a clearer mind."
+            },
+            {
+                principle: "Self-sufficiency",
+                explanation: "I value being able to do things myself. From cooking to maintaining my own infrastructure, I prefer relying on my own skills."
+            },
+            {
+                principle: "No gambling",
+                explanation: "It's not something I engage in. I've seen how it can negatively affect people."
+            },
+            {
+                principle: "Continuous learning",
+                explanation: "There's always something new to learn. Whether it's a language, a skill, or understanding myself better."
+            },
+        ]
+    },
+    {
+        title: "Health",
+        items: [
+            {
+                principle: "No drugs or alcohol",
+                explanation: "I value a clear mind and body. I believe what we put into our system directly affects how we think and feel."
+            },
+            {
+                principle: "No caffeine",
+                explanation: "Never been a fan of it. Never liked coffee or energy drinks."
+            },
+            {
+                principle: "Avoid unhealthy food",
+                explanation: "What we put in our body matters. I try to eat whole, unprocessed foods as much as possible."
+            },
+            {
+                principle: "No eating out",
+                explanation: "Unless it's a special gathering. Cooking at home gives me full control over what I consume, and it's often more healthy and affordable."
+            },
+        ]
+    },
+    {
+        title: "Media",
+        items: [
+            {
+                principle: "No profanity",
+                explanation: "I find it lowers the quality of communication. It often becomes a crutch rather than a tool for expression."
+            },
+            {
+                principle: "No short-form social media",
+                explanation: "TikTok, Reels, Shorts, etc. These platforms are designed to be addictive and the endless scroll is a trap I've chosen to opt out of."
+            },
+            {
+                principle: "No TV",
+                explanation: "I don't own a TV and I don't watch TV channels. Sometimes I'll watch a show or a movie, but traditional television isn't something I engage with."
+            },
+        ]
+    },
+    {
+        title: "Software",
+        items: [
+            {
+                principle: "Free and open source software",
+                explanation: "I believe in software that respects user freedom and privacy. The idea of services being built to exploit users rather than serve them rubs me the wrong way."
+            },
+        ]
+    },
+]
+---
+
+<div class="principles">
+    <div class="categories">
+        {categories.map(category => (
+            <div class="category">
+                <h3>{category.title}</h3>
+                <ul>
+                    {category.items.map(item => (
+                        <li>
+                            <strong>{item.principle}</strong>
+                            <span>{item.explanation}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        ))}
+    </div>
+</div>
+
+<style>
+    .categories {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .category h3 {
+        color: var(--primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--primary-opacity);
+    }
+
+    .category ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .category li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .category li strong {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .category li span {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        opacity: 0.8;
+    }
+</style>

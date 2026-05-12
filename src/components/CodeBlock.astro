@@ -44,32 +44,44 @@ const showHeader = hasLang || hasFileName;
 figcaption {
   display: flex;
   justify-content: space-between;
-  padding: 5px 10px;
+  padding: 0.5rem 1rem;
   font-family: monospace;
-  background: rgb(40, 44, 52);
-  border-top-left-radius: 0.3em;
-  border-top-right-radius: 0.3em;
-  border-bottom: 1px solid hsl(220, 14%, 71%);
+  font-size: 0.85rem;
+  background: var(--secondary);
+  border-bottom: 1px solid var(--primary-opacity);
+}
+
+figcaption .filename {
+    color: var(--primary);
+    opacity: 0.8;
+}
+
+figcaption .lang {
+    color: var(--accent);
+    font-weight: 600;
 }
 
 figure {
     display: flex;
     flex-direction: column;
-    /* gap: 10px; */
-    /* width: 100%; */
-    border-radius: 10px;
+    border-radius: 0.5rem;
     overflow: hidden;
-    margin: 10px 0;
-    background-color: rgb(40, 44, 52);
+    margin: 1rem 0;
+    border: 1px solid var(--primary-opacity);
+    background: var(--secondary);
 }
 
 figure .code {
-    overflow: scroll;
-    padding: 0 1rem;
-    background-color: rgb(40, 44, 52);
+    padding: 1rem;
+    background: var(--secondary);
+    overflow-x: auto;
 }
 
 figure pre {
-    padding: 1rem 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
 }
 </style>

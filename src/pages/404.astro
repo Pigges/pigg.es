@@ -1,44 +1,65 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import notFoundImg from '../assets/404.webp';
 ---
 
 <Layout title="404" description="Hi! I'm Philip. Welcome to my website!">
-    <div class="wrapper not-found">
-        <img class="bug unselectable" src="/assets/404.svg" alt="bug found">
-        <div class="text">
-            <h3>404 - Not found</h3>
-            <p>Oops! You were not supposed to see this...</p>
+    <div class="container">
+        <Image class="image unselectable" loading="eager" src={notFoundImg} alt="404" />
+        <div class="content">
+            <h1>404</h1>
+            <p>Page not found</p>
+            <a href="/" class="button">Go home</a>
         </div>
-        <a href="/" class="unselectable btn">Head back home</a>
     </div>
 </Layout>
 <style>
-    .not-found {
+    .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 40px;
+        gap: 2rem;
+        min-height: 70vh;
+        padding: 2rem;
     }
 
-    .bug {
-        width: 50%;
-        max-width: 300px;
-        padding: 20px;
-        border-radius: 10px 20px;
-        background-color: var(--secondary-opacity);
-        box-shadow: 0px 4px 4px var(--primary-opacity);
-        transition: width 0.5s;
-        animation: popup 0.5s;
+    .image {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 0.5rem;
     }
 
-    .not-found .text {
+    .content {
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
 
-    @media only screen and (max-width: 700px) {
-        .bug {
-            width: 80%;
-        }
+    .content h1 {
+        font-size: 4rem;
+        color: var(--accent);
+    }
+
+    .content p {
+        font-size: 1.5rem;
+    }
+
+    .content .button {
+        padding: 0.8rem 2rem;
+        background: var(--accent);
+        color: #fff;
+        border: 2px solid var(--accent);
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: transform 0.2s;
+    }
+
+    .content .button:hover {
+        transform: scale(1.05);
     }
 </style>

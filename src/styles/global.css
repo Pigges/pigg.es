@@ -1,38 +1,46 @@
 :root {
-    --primary: #111;
-    --primary-opacity: rgba(0,0,0,0.3);
-    --secondary: #eee;
-    --secondary-opacity: rgba(255,255,255,0.3);
-    --background: #f1f1f1;
-}
-
-[data-theme="light"] {
-    --primary: #111;
-    --primary-opacity: rgba(0,0,0,0.3);
-    --secondary: #eee;
-    --secondary-opacity: rgba(255,255,255,0.3);
-    --background: #f1f1f1;
-}
-  
-  [data-theme="dark"] {
+    --accent: #08f;
+    --accent-opacity: rgba(0, 136, 255, 0.6);
     --primary: #eee;
     --primary-opacity: rgba(255,255,255,0.3);
     --secondary: #111;
-    --secondary-opacity: rgba(0,0,0,0.3);
-    --background: #1f1f1f;
-    --opacity: rgba(0,0,0,0.2);
+    --secondary-opacity: #121212;
+    --background: #101010;
+    --opacity: rgba(0, 0, 0, 0.2);
+}
+
+/* Override Astro/Shiki code block backgrounds */
+html body pre.astro-code,
+html body .astro-code,
+html body pre[class*="language-"] {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: var(--primary) !important;
+    box-shadow: none !important;
 }
 
 * {
     margin: 0;
 }
 
+h1 { font-size: xxx-large; }
+h2 { font-size: x-large; }
+p { font-size: large; }
+
 a {
     color: var(--primary);
+}
+a:hover {
+    color: var(--accent);
+}
+
+hr {
+    color: var(--accent);
 }
 
 html {
     font-family: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    background-color: var(--background);
 }
 
 code {
@@ -44,8 +52,12 @@ body {
     color: var(--primary);
     display: flex;
     flex-direction: column;
+    gap: 2em;
     min-height: 100vh;
-    background-color: var(--background);
+    max-width: 1250px;
+    padding: 0 1em;
+    margin: auto;
+    /* background-color: var(--background); */
 }
 
 header {
@@ -56,13 +68,13 @@ header {
 }
 
 main {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
     flex-grow: 1;
+    height: fit-content;
     margin: 40px 0;
-    padding-top: 50px;
-}
-
-footer {
-    flex-shrink: 0;
+    padding-top: 3em;
 }
 
 .unselectable, .btn, img {
@@ -81,7 +93,40 @@ footer {
 }
 
 .wrapper {
-    margin: 40px;
+    /* width: 100%;
+    max-width: 1250px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    gap: 2em; */
+}
+
+.glowing {
+    box-shadow: 0 0 5px 5px var(--accent);
+    transition: box-shadow 0.5s;
+}
+
+.glowing-hover {
+    background-color: var(--secondary-opacity);
+    border: 1px solid var(--primary-opacity);
+    border-radius: 0.75rem;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.glowing-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 136, 255, 0.15);
+    border-color: var(--accent);
+}
+
+.rounded {
+    border-radius: 0.5em;
+}
+
+.box {
+    padding: 0.5em;
+    border: 1px solid var(--primary-opacity);
+    background-color: var(--secondary-opacity);
 }
 
 .skills svg {
@@ -101,18 +146,18 @@ footer {
     justify-content: center;
     align-self: center;
     align-items: center;
-    gap: 10px;
-    padding: 10px 20px;
-    border-radius: 20px;
-    background-color: var(--primary-opacity);
+    gap: 1em;
+    padding: 0.5em;
+    border: 1px solid var(--accent);
+    background-color: var(--secondary-opacity);
     transition: transform 0.2s ease-in-out;
     animation: popup 0.5s;
+    transition: box-shadow 0.5s;
 }
 
 .btn:hover {
-    outline: 1px solid var(--primary);
-    box-shadow: 0px 4px 4px var(--primary-opacity);
-    transform: scale(1.1);
+    box-shadow: 0 0 3px 3px var(--accent);
+    /* transform: scale(1.1); */
 }
 
 
